@@ -70,6 +70,23 @@ scenarios = {
     }
 }
 
+# Display conversion rates table
+conversion_data = []
+for name, config in scenarios.items():
+    row = {
+        "Σενάριο": name,
+        "% Εγγραφή": f"{config['conversion']['signup']*100:.0f}%",
+        "% Συμπλ. Προφίλ": f"{config['conversion']['profile']*100:.0f}%",
+        "% Κάνουν Αναζήτηση": f"{config['conversion']['search']*100:.0f}%",
+        "% Φτάνουν στο Όριο": f"{config['conversion']['limit']*100:.0f}%",
+        "% Αγοράζουν": f"{config['conversion']['purchase']*100:.0f}%"
+    }
+    conversion_data.append(row)
+
+conversion_df = pd.DataFrame(conversion_data)
+st.subheader("📋 Ποσοστά Μετατροπών ανά Σενάριο")
+st.dataframe(conversion_df, use_container_width=True)
+
 fig = go.Figure()
 summary_table = []
 
@@ -110,3 +127,5 @@ st.markdown("""
 🔄 Τα δεδομένα βασίζονται σε εκτιμήσεις με πιθανότητες μετατροπής σε κάθε βήμα χρήσης,
 και μπορούν να προσαρμοστούν για πιο ρεαλιστική ανάλυση αν μας δοθούν νέα insights.
 """)
+
+
