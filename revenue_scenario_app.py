@@ -127,5 +127,32 @@ st.markdown("""
 🔄 Τα δεδομένα βασίζονται σε εκτιμήσεις με πιθανότητες μετατροπής σε κάθε βήμα χρήσης,
 και μπορούν να προσαρμοστούν για πιο ρεαλιστική ανάλυση αν μας δοθούν νέα insights.
 """)
+import graphviz
+
+# Δημιουργία γραφήματος
+dot = graphviz.Digraph(format='png')
+dot.attr(rankdir='LR', size='10,5')
+
+# Κόμβοι
+dot.node('A', '🚶‍♂️ Επισκέπτης\n(100%)')
+dot.node('B', '✍️ Εγγραφή\n(20%–25%)')
+dot.node('C', '📝 Συμπλ. Προφίλ\n(45%–60%)')
+dot.node('D', '🔍 Αναζήτηση Σπιτιού\n(75%–85%)')
+dot.node('E', '⛔ Όριο Credits\n(50%–70%)')
+dot.node('F', '💳 Αγορά Credits\n(15%–25%)')
+
+# Συνδέσεις
+dot.edge('A', 'B', label='signup')
+dot.edge('B', 'C', label='profile')
+dot.edge('C', 'D', label='αναζήτηση')
+dot.edge('D', 'E', label='ξεμένει από credits')
+dot.edge('E', 'F', label='αγορά')
+
+# Αποθήκευση ως αρχείο εικόνας
+dot.render('conversion_funnel', cleanup=False)
+
+print("✅ Ο χάρτης αποθηκεύτηκε ως 'conversion_funnel.png'")
+
+
 
 
